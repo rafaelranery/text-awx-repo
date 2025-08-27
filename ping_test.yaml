@@ -1,0 +1,24 @@
+- name: Ping localhost
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Ping markeplace
+      ansible.builtin.uri:
+        url: https://tradeto.world
+        method: GET
+        return_content: no
+      register: result
+
+    - name: Show result
+      debug:
+        var: result.status
+    - name: Ping about.tradeto.world
+      ansible.builtin.uri:
+        url: https://tradeto.world
+        method: GET
+        return_content: no
+      register: result
+
+    - name: Show result
+      debug:
+        var: result.status
