@@ -11,7 +11,7 @@
 
     - name: Show result
       debug:
-        var: result.status
+        var: result
     - name: Ping about.tradeto.world
       ansible.builtin.uri:
         url: https://tradeto.world
@@ -21,4 +21,4 @@
 
     - name: Show result
       debug:
-        var: result.status
+        var: result
