@@ -1,24 +1,22 @@
-- name: Ping localhost
+---
+- name: Ping main web servers
   hosts: localhost
   gather_facts: no
+  vars:
+    urls:
+      - https://tradeto.world
+      - https://about.tradeto.world
+      - https://editorial.tradeto.world
+
   tasks:
-    - name: Ping markeplace
+    - name: Ping each URL
       ansible.builtin.uri:
-        url: https://tradeto.world
+        url: "{{ item }}"
         method: GET
         return_content: no
-      register: result
+      loop: "{{ urls }}"
+      register: results
 
-    - name: Show result
+    - name: Show results
       debug:
-        var: result
-    - name: Ping about.tradeto.world
-      ansible.builtin.uri:
-        url: https://tradeto.world
-        method: GET
-        return_content: no
-      register: result
-
-    - name: Show result
-      debug:
-        var: result
+        var: results.results
